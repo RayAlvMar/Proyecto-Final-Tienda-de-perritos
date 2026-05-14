@@ -1,0 +1,24 @@
+:root {
+    --dog-orange: #F4A261;
+    --dog-orange-hover: #E38B3A;
+}
+
+.btn-dog-orange {
+    background-color: var(--dog-orange) !important;
+    border: none;
+    color: white !important;
+    transition: 0.3s;
+}
+
+.btn-dog-orange:hover {
+    background-color: var(--dog-orange-hover) !important;
+    transform: scale(1.02);
+}
+
+.dog-footer {
+    height: 120px;
+    background-image: url("http://127.0.0.1:5000/static/img/perritos.png");
+    background-repeat: repeat-x;
+    background-position: bottom;
+    background-size: auto 100%;
+}
