@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block rayito %}
+<h2 class="ms-4 mb-0 fw-light text-uppercase text-secondary-custom" style="letter-spacing: 4px; font-size: 1.4rem;">
+    Recuperar Contraseña 𖤐
+</h2>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row justify-content-center mt-5">
+<div class="col-md-5">
+<div class="p-4 rounded-4 shadow-sm card-custom">
+<form method="POST" action="/recuperar">
+
+<div class="input-group mb-3 border rounded-3 overflow-hidden">
+     <span class="input-group-text bg-transparent border-0">
+        <i class="bi bi-envelope"></i>
+    </span>
+    <input type="email" name="email" class="form-control border-0" placeholder="Ingresa tu correo electrónico" required>
+</div>
+
+<button type="submit" class="btn btn-link-custom w-100 rounded-3">
+    Enviar enlace de recuperación
+</button>
+
+</form>
+</div>
+</div>
+</div>
+
+{% endblock %}
