@@ -1,6 +1,42 @@
 :root {
     --dog-orange: #F4A261;
     --dog-orange-hover: #E38B3A;
+    --cream: #FFF8F0;
+    --beige: #F4E7D3;
+    --brown: #6B4F3A;
+    --dark: #4A3428;
+    --orange: #D99152;
+    --gold: #F2C078;
+    --white: #FFFFFF;
+    --gray: #6C757D;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--dark);
+}
+
+.text-secondary-custom {
+    color: var(--brown);
+}
+
+.card-custom {
+    background-color: var(--white);
+    border: 1px solid var(--beige);
+}
+
+.text-link-custom {
+    color: var(--orange);
+    transition: color 0.2s;
+}
+
+.text-link-custom:hover {
+    color: var(--dog-orange-hover);
+}
+
+.form-control:focus {
+    border-color: var(--dog-orange) !important;
+    box-shadow: 0 0 0 0.25rem rgba(244, 162, 97, 0.25) !important;
 }
 
 .btn-dog-orange {
@@ -21,4 +57,5 @@
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: auto 100%;
+    margin-top: 5rem;
 }
