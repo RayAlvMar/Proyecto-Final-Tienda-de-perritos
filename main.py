@@ -2,6 +2,7 @@ from flask import Flask, flash, render_template, request, redirect, send_file, s
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import smtplib
+from bson.objectid import ObjectId
 from email.mime.text import MIMEText
 from pymongo import MongoClient
 
@@ -12,6 +13,7 @@ client = MongoClient("mongodb+srv://Raytest:raysito123@ralex.lbaspzb.mongodb.net
 db = client["Tienda_Perritos"]
 usuarios_collection = db["usuarios"]
 perros_collection = db["perros"]
+carrito_collection = db["carrito"]
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
@@ -47,6 +49,60 @@ Si no solicitaste esto, ignora este correo.
     )
 
     servidor.quit()
+
+@app.route("/agregar_carrito/<id>", methods=["POST"])
+def agregar_carrito(id):
+
+    perro = perros_collection.find_one({"_id": ObjectId(id)})
+
+    if perro:
+
+        producto = {
+            "perro_id": str(perro["_id"]),
+            "nombre": perro["nombre"],
+            "precio": perro["precio"],
+            "imagen_url": perro["imagen_url"],
+            "cantidad": 1
+        }
+
+        carrito_collection.insert_one(producto)
+
+    return redirect(url_for("ver_carrito"))
+
+@app.route("/carrito")
+def ver_carrito():
+
+    carrito = carrito_collection.find()
+
+    total = 0
+
+    for item in carrito:
+        total += item["precio"] * item["cantidad"]
+
+    return render_template(
+        "carrito.html",
+        carrito=carrito,
+        total=total
+    )
+
+@app.route("/actualizar_carrito/<id>", methods=["POST"])
+def actualizar_carrito(id):
+
+    cantidad = int(request.form["cantidad"])
+
+    carrito_collection.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {"cantidad": cantidad}}
+    )
+
+    return redirect(url_for("ver_carrito"))
+
+@app.route("/eliminar_carrito/<id>")
+def eliminar_carrito(id):
+
+    carrito_collection.delete_one({"_id": ObjectId(id)})
+
+    return redirect(url_for("ver_carrito"))
 
 @app.route('/')
 def home():
@@ -175,7 +231,7 @@ def adopcion():
 
     perros = list(perros_collection.find())
 
-    return render_template("perritos.html", perros=perros)
+    return render_template("adopcion.html", perros=perros)
 
 @app.route("/articulos")
 def articulos():

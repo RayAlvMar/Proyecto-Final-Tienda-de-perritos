@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="container py-4">
+
+    <h2 class="text-center mb-4">🛒 Carrito</h2>
+
+    {% if carrito %}
+
+        <div class="row">
+
+            {% for item in carrito %}
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <img src="{{ item.imagen_url }}"
+                         class="card-img-top"
+                         style="height:220px; object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5>{{ item.nombre }}</h5>
+
+                        <p>
+                            <strong>Precio:</strong> ${{ item.precio }}
+                        </p>
+
+                        <form action="{{ url_for('actualizar_carrito', id=item._id) }}"
+                              method="POST">
+
+                            <label>Cantidad:</label>
+
+                            <input type="number"
+                                   name="cantidad"
+                                   value="{{ item.cantidad }}"
+                                   min="1"
+                                   class="form-control mb-3">
+
+                            <button class="btn btn-warning w-100 mb-2">
+                                Actualizar
+                            </button>
+
+                        </form>
+
+                        <a href="{{ url_for('eliminar_carrito', id=item._id) }}"
+                           class="btn btn-danger w-100">
+
+                            Eliminar
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="text-end mt-4">
+            <h3>Total: ${{ total }}</h3>
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info text-center">
+            El carrito está vacío
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
