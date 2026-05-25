@@ -11,42 +11,112 @@
 </head>
 
 <body>
-    {% block navbar %}
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                 DoggyWorld
-            </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">DoggyWorld</a>
 
-            <div class="collapse navbar-collapse" id="menu">
-                 {% if session.get('usuario') and request.endpoint not in ['login', 'registro', 'recuperar', 'reset'] %}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Adopción</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Perfiles</a></li>
-                </ul>
-                 {% endif %}
-            </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            {% if session.get('usuario') and request.endpoint not in ['login', 'registro', 'recuperar', 'reset'] %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/compra">Compra</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adopcion">Adopción</a></li>
+                <li class="nav-item"><a class="nav-link" href="/articulos">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/perfil">Perfil</a></li>
+            </ul>
+            {% endif %}
         </div>
-    </nav>
-    {% endblock %}
-    <main class="container py-4">
-        {% block contenido %}
-        {% endblock %}
-    </main>
+    </div>
+</nav>
+{% endblock %}
 
-    {% block footer %}
+<main class="container py-4">
+
+{% block contenido %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">DoggyWorld</h1>
+        <p class="text-muted fs-5">
+            Sistema web para gestión de perros en adopción, compra y cuidado responsable.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Propósito del proyecto</h3>
+        <p>
+            DoggyWorld centraliza información de perros disponibles para adopción o compra,
+            ayudando a tomar decisiones responsables.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Funcionalidad</h3>
+        <p>
+            Registro de usuarios, login y catálogo de perros almacenados en MongoDB.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Base de datos</h3>
+        <p>
+            MongoDB con colecciones de usuarios y perros para gestión dinámica.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Tecnologías</h3>
+        <ul>
+            <li>Flask</li>
+            <li>MongoDB</li>
+            <li>HTML / CSS / Bootstrap</li>
+            <li>Jinja2</li>
+        </ul>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Seguridad</h3>
+        <p>
+            Sesiones y contraseñas encriptadas para proteger usuarios.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Enfoque</h3>
+        <p>
+            Promover adopción responsable y bienestar animal usando tecnología.
+        </p>
+    </div>
+
+    <div class="card shadow-sm p-4">
+        <h3>Perros disponibles</h3>
+        <p>
+            Aquí puedes ver los perros registrados en el sistema.
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}
+
+</main>
+
+{% block footer %}
 <footer class="py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0"> DoggyWorld - Hecho con amor para perritos</p>
-        </div>
+    <div class="container text-center">
+        <p class="mb-0">DoggyWorld - Hecho con amor para perritos</p>
+    </div>
 </footer>
-    {% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    {% block scripts %}{% endblock %}
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
+
 </body>
 </html>

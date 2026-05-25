@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="container py-4">
+
+    <h2 class="text-center mb-4">🐶 Perros en venta</h2>
+
+    <div class="row">
+
+        {% for perro in perros %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <img src="{{ perro.imagen_url }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ perro.nombre }}</h5>
+
+                    <p class="card-text">
+                        <strong>Raza:</strong> {{ perro.raza }} <br>
+                        <strong>Edad:</strong> {{ perro.edad }} <br>
+                        <strong>Sexo:</strong> {{ perro.sexo }} <br>
+                        <strong>Precio:</strong> ${{ perro.precio }}
+                    </p>
+
+                    <span class="badge bg-success">{{ perro.tipo }}</span>
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

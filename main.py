@@ -11,6 +11,7 @@ app.secret_key = "123456789"
 client = MongoClient("mongodb+srv://Raytest:raysito123@ralex.lbaspzb.mongodb.net/")
 db = client["Tienda_Perritos"]
 usuarios_collection = db["usuarios"]
+perros_collection = db["perros"]
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
@@ -75,33 +76,32 @@ def login():
     
 @app.route("/registrar", methods=["GET", "POST"])
 def registrar():
-    if request.method == "POST":
-        nombre = request.form.get("nombre")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        password_hash = generate_password_hash(password)
-        edad = request.form.get("edad")
-        genero = request.form.get("genero")
+    if request.method == "GET":
+        return render_template("registro.html")
 
-        usuario_existente = usuarios_collection.find_one({"email": email})
+    nombre = request.form.get("nombre")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    password_hash = generate_password_hash(password)
+    edad = request.form.get("edad")
+    genero = request.form.get("genero")
 
-        if usuario_existente:
-            flash("El usuario ya existe")
-            return redirect("/registrar")
+    usuario_existente = usuarios_collection.find_one({"email": email})
 
-        usuarios_collection.insert_one({
-            "nombre": nombre,
-            "email": email,
-            "password": password_hash,
-            "edad": edad,
-            "genero": genero
-        })
+    if usuario_existente:
+        flash("El usuario ya existe")
+        return redirect("/registrar")
 
-        session["usuario"] = email
-        session["nombre"] = nombre
-        flash("Registro exitoso", "success")
-        return redirect("/login")    
-    return render_template("registro.html")
+    usuarios_collection.insert_one({
+        "nombre": nombre,
+        "email": email,
+        "password": password_hash,
+        "edad": edad,
+        "genero": genero
+    })
+
+    flash("Registro exitoso", "success")
+    return redirect("/login")
 
 @app.route("/recuperar", methods=["GET", "POST"])
 def recuperar():
@@ -157,6 +157,37 @@ def base():
         return redirect("/login")
     
     return render_template("base.html")
+
+@app.route("/compra")
+def compra():
+    if "usuario" not in session:
+        return redirect("/login")
+    return render_template("compra.html")
+
+@app.route("/adopcion")
+def adopcion():
+    if "usuario" not in session:
+        flash("Debes iniciar sesión para acceder a esta página", "warning")
+        return redirect("/login")
+
+    print("a")
+    print(dict(session))  
+
+    perros = list(perros_collection.find())
+
+    return render_template("perritos.html", perros=perros)
+
+@app.route("/articulos")
+def articulos():
+    if "usuario" not in session:
+        return redirect("/login")
+    return render_template("articulos.html")
+
+@app.route("/perfil")
+def perfil():
+    if "usuario" not in session:
+        return redirect("/login")
+    return render_template("perfil.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
