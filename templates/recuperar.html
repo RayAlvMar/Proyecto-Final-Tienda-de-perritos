@@ -1,30 +1,57 @@
 {% extends "base.html" %}
 
 {% block rayito %}
-<h2 class="ms-4 mb-0 fw-light text-uppercase text-secondary-custom" style="letter-spacing: 4px; font-size: 1.4rem;">
-    Recuperar Contraseña 𖤐
-</h2>
+<div class="container mt-4">
+    <div class="text-center">
+        <h2 class="fw-bold text-uppercase text-secondary-custom"
+        style="letter-spacing: 4px; font-size: 1.5rem;">
+             Recuperar Contraseña
+        </h2>
+        <p class="text-muted mt-2">
+            Recupera el acceso a tu cuenta
+        </p>
+    </div>
+</div>
 {% endblock %}
 
 {% block contenido %}
 
+<div class="container">
 <div class="row justify-content-center mt-5">
 <div class="col-md-5">
-<div class="p-4 rounded-4 shadow-sm card-custom">
-<form method="POST" action="/recuperar">
+<div class="p-5 rounded-5 shadow-sm card-custom">
 
-<div class="input-group mb-3 border rounded-3 overflow-hidden">
-     <span class="input-group-text bg-transparent border-0">
-        <i class="bi bi-envelope"></i>
-    </span>
-    <input type="email" name="email" class="form-control border-0" placeholder="Ingresa tu correo electrónico" required>
+<div class="text-center mb-4">
+    <div class="mb-3">
+        <i class="bi bi-shield-lock-fill text-link-custom"
+        style="font-size: 3rem;"></i>
+    </div>
+    <h3 class="fw-bold text-secondary-custom">
+        ¿Olvidaste tu contraseña?
+    </h3>
+    <p class="text-muted">
+        Ingresa tu correo y te enviaremos un enlace de recuperación
+    </p>
 </div>
 
-<button type="submit" class="btn btn-link-custom w-100 rounded-3">
-    Enviar enlace de recuperación
-</button>
+<form method="POST" action="/recuperar">
+<div class="mb-4">
+    <label class="form-label fw-semibold text-secondary-custom">
+        Correo electrónico
+    </label>
+    <div class="input-group border rounded-4 overflow-hidden">
+        <span class="input-group-text border-0 px-3">
+            <i class="bi bi-envelope-fill"></i>
+        </span>
+        <input type="email" name="email" class="form-control border-0 py-3" placeholder="Ingresa tu correo electrónico" required>
+    </div>
+</div>
 
+<button type="submit" class="btn btn-link-custom w-100 rounded-4">
+    Enviar enlace 🐾
+</button>
 </form>
+</div>
 </div>
 </div>
 </div>

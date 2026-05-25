@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from pymongo import MongoClient
 
 app = Flask(__name__)
-app.secret_key = "perritoalexis"
+app.secret_key = "123456789"
 
 client = MongoClient("mongodb+srv://Raytest:raysito123@ralex.lbaspzb.mongodb.net/")
 db = client["Tienda_Perritos"]

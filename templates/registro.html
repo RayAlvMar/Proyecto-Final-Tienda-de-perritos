@@ -1,72 +1,112 @@
 {% extends "base.html" %}
 
 {% block rayito %}
-<h2 class="ms-4 mb-0 fw-light text-uppercase text-secondary-custom" style="letter-spacing: 4px; font-size: 1.4rem;">
-    REGISTRARSE ⚝
-</h2>
+<div class="container mt-4">
+    <div class="text-center">
+        <h2 class="fw-bold text-uppercase text-secondary-custom" style="letter-spacing: 5px; font-size: 1.5rem;">
+            REGISTRARSE
+        </h2>
+
+        <p class="text-muted">
+            Forma parte de DoggyWorld
+        </p>
+    </div>
+</div>
 {% endblock %}
 
 {% block contenido %}
-<div class="container mt-5">
+
+<div class="container mt-4">
+<div class="row justify-content-center">
+<div class="col-md-6 col-lg-5">
+<div class="card-custom p-5 rounded-5 shadow-sm">
 
 <div class="text-center mb-4">
-    <div>
-        <i class="bi bi-person-circle fs-1 mb-2 text-link-custom"></i>
+    <div class="mb-3">
+        <i class="bi bi-heart-fill text-link-custom" style="font-size: 3rem;"></i>
     </div>
-    <h2 class="fw-light">Registrate aquí</h2>
-    <p class="text-muted">En tan solo 3 minutos</p>
+    <h2 class="fw-bold text-secondary-custom">
+        Crear cuenta
+    </h2>
+    <p class="text-muted">
+        Regístrate en menos de 3 minutos
+    </p>
 </div>
-
-<div class="row justify-content-center">
-<div class="col-md-5">
-<div class="p-4 rounded-4 shadow-sm card-custom">
-
 <form method="POST" action="/registrar">
 
-<div class="input-group mb-3 border rounded-3 overflow-hidden">
-    <span class="input-group-text bg-transparent border-0">
-        <i class="bi bi-person"></i>
-    </span>
-    <input type="text" name="nombre" class="form-control border-0" placeholder="Ingresa tu nombre de usuario" required>
+<div class="mb-3">
+    <label class="form-label fw-semibold text-secondary-custom">
+        Usuario
+    </label>
+    <div class="input-group border rounded-4 overflow-hidden">
+
+        <span class="input-group-text bg-transparent border-0">
+            <i class="bi bi-person-fill"></i>
+        </span>
+        <input type="text" name="nombre" class="form-control border-0 py-3" placeholder="Ingresa tu usuario" required>
+    </div>
 </div>
 
-<div class="input-group mb-3 border rounded-3 overflow-hidden">
-    <span class="input-group-text bg-transparent border-0">
-        <i class="bi bi-envelope"></i>
-    </span>
-    <input type="email" name="email" class="form-control border-0" placeholder="Ingresa tu correo electrónico" required>
+<div class="mb-3">
+    <label class="form-label fw-semibold text-secondary-custom">
+        Correo electrónico
+    </label>
+    <div class="input-group border rounded-4 overflow-hidden">
+        <span class="input-group-text bg-transparent border-0">
+            <i class="bi bi-envelope-fill"></i>
+        </span>
+        <input type="email" name="email" class="form-control border-0 py-3" placeholder="Ingresa tu correo" required>
+    </div>
 </div>
 
-<div class="input-group mb-4 border rounded-3 overflow-hidden">
-    <span class="input-group-text bg-transparent border-0">
-        <i class="bi bi-lock"></i>
-    </span>
-    <input type="password" name="password" class="form-control border-0" placeholder="Ingresa tu contraseña" required>
+<div class="mb-3">
+
+    <label class="form-label fw-semibold text-secondary-custom">
+        Contraseña
+    </label>
+
+    <div class="input-group border rounded-4 overflow-hidden">
+
+        <span class="input-group-text bg-transparent border-0">
+            <i class="bi bi-lock-fill"></i>
+        </span>
+
+        <input type="password" name="password" class="form-control border-0 py-3" placeholder="Ingresa tu contraseña" required>
+    </div>
+</div>
+<div class="row">
+
+<div class="col-md-6 mb-3">
+    <label class="form-label fw-semibold text-secondary-custom">
+        Edad
+    </label>
+    <div class="input-group border rounded-4 overflow-hidden">
+        <span class="input-group-text bg-transparent border-0">
+            <i class="bi bi-balloon-heart"></i>
+        </span>
+        <input type="number" name="edad" class="form-control border-0 py-3" placeholder="Edad" required>
+    </div>
 </div>
 
-
-<div class="input-group mb-4 border rounded-3 overflow-hidden">
-    <span class="input-group-text bg-transparent border-0">
-        <i class="bi bi-balloon"></i>
-    </span>
-    <input type="number" name="edad" class="form-control border-0" placeholder="Ingresa tu edad" required>
+<div class="col-md-6 mb-4">
+    <label class="form-label fw-semibold text-secondary-custom">
+        Género
+    </label>
+    <div class="input-group border rounded-4 overflow-hidden">
+        <span class="input-group-text bg-transparent border-0">
+            <i class="bi bi-gender-ambiguous"></i>
+        </span>
+        <input type="text" name="genero" class="form-control border-0 py-3" placeholder="Género" required>
+    </div>
+</div>
 </div>
 
-
-<div class="input-group mb-4 border rounded-3 overflow-hidden">
-    <span class="input-group-text bg-transparent border-0">
-       <i class="bi bi-gender-ambiguous"></i>    </span>
-    <input type="text" name="genero" class="form-control border-0" placeholder="Ingresa tu género" required>
-</div>
-
-<button type="submit" class="btn btn-primary w-100 rounded-3">
-    Listo!
+<button type="submit" class="btn btn-primary-soft w-100 rounded-4 py-3 fw-semibold">
+    Crear cuenta 🦴
 </button>
 
-</form>
-
 </div>
 </div>
 </div>
-
+</div>
 {% endblock %}

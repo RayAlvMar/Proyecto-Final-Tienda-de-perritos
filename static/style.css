@@ -1,14 +1,18 @@
 :root {
-    --dog-orange: #F4A261;
-    --dog-orange-hover: #E38B3A;
-    --cream: #FFF8F0;
-    --beige: #F4E7D3;
-    --brown: #6B4F3A;
-    --dark: #4A3428;
-    --orange: #D99152;
-    --gold: #F2C078;
+    --dog-orange: #C97C5D;        
+    --dog-orange-hover: #A85C3B;
+    --cream: #FFF7ED;            
+    --beige: #E7D3C1;            
+    --brown: #5A3E2B;            
+    --dark: #2E1F16;              
+    --orange: #D08C60;           
+    --gold: #E6B98A;            
     --white: #FFFFFF;
-    --gray: #6C757D;
+    --gray: #8A7F78;             
+    --pink-light: #FFF1E6;       
+    --peach: #F3D5C0;   
+    --blue-soft: #aa7345;
+    --blue-soft-hover: #62421a;        
 }
 
 body {
@@ -21,34 +25,73 @@ body {
 }
 
 .card-custom {
-    background-color: var(--white);
-    border: 1px solid var(--beige);
+    background-color: var(--pink-light);
+    border: 2px solid var(--beige);
 }
 
 .text-link-custom {
-    color: var(--orange);
-    transition: color 0.2s;
+    color: var(--dog-orange);
+    transition: 0.2s;
 }
 
 .text-link-custom:hover {
-    color: var(--dog-orange-hover);
+    color: var(--brown);
+}
+
+.input-group {
+    background-color: var(--white);
+    border-color: var(--beige) !important;
+}
+
+.input-group-text {
+    color: var(--dog-orange);
+    background-color: var(--peach) !important;
+}
+
+.form-control {
+    color: var(--dark);
+    background-color: var(--white);
+}
+
+.form-control::placeholder {
+    color: var(--gray);
 }
 
 .form-control:focus {
     border-color: var(--dog-orange) !important;
-    box-shadow: 0 0 0 0.25rem rgba(244, 162, 97, 0.25) !important;
+    box-shadow: 0 0 0 0.25rem rgba(201, 124, 93, 0.20) !important;
 }
 
-.btn-dog-orange {
-    background-color: var(--dog-orange) !important;
+.btn-link-custom {
+    background-color: var(--dog-orange);
     border: none;
-    color: white !important;
+    color: white;
     transition: 0.3s;
+    padding: 12px;
+    font-weight: 500;
 }
 
-.btn-dog-orange:hover {
-    background-color: var(--dog-orange-hover) !important;
+.btn-primary-soft {
+    background-color: var(--blue-soft);
+    border: none;
+    color: white;
+    transition: 0.3s;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-primary-soft:hover {
+    background-color: var(--blue-soft-hover);
     transform: scale(1.02);
+}
+
+.btn-link-custom:hover {
+    background-color: var(--dog-orange-hover);
+    color: white;
+}
+
+.border {
+    border-color: var(--beige) !important;
 }
 
 .dog-footer {
