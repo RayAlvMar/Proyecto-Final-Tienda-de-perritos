@@ -11,6 +11,7 @@ app.secret_key = "123456789"
 client = MongoClient("mongodb+srv://Raytest:raysito123@ralex.lbaspzb.mongodb.net/")
 db = client["Tienda_Perritos"]
 usuarios_collection = db["usuarios"]
+usuarios_collection = db["perros"]
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
