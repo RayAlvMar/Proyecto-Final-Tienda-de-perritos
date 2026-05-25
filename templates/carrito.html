@@ -4,7 +4,13 @@
 
 <div class="container py-4">
 
-    <h2 class="text-center mb-4">🛒 Carrito</h2>
+    <h2 class="text-center mb-4 text-secondary-custom">🛒 Carrito</h2>
+
+    <div class="text-center mb-4">
+        <a href="{{ url_for('adopcion') }}" class="btn btn-primary-soft">
+            ⬅️ Volver al catálogo
+        </a>
+    </div>
 
     {% if carrito %}
 
@@ -14,7 +20,7 @@
 
             <div class="col-md-4 mb-4">
 
-                <div class="card shadow-sm h-100">
+                <div class="card card-custom shadow-sm h-100">
 
                     <img src="{{ item.imagen_url }}"
                          class="card-img-top"
@@ -22,7 +28,7 @@
 
                     <div class="card-body">
 
-                        <h5>{{ item.nombre }}</h5>
+                        <h5 class="text-secondary-custom">{{ item.nombre }}</h5>
 
                         <p>
                             <strong>Precio:</strong> ${{ item.precio }}
@@ -31,7 +37,7 @@
                         <form action="{{ url_for('actualizar_carrito', id=item._id) }}"
                               method="POST">
 
-                            <label>Cantidad:</label>
+                            <label class="mb-1">Cantidad:</label>
 
                             <input type="number"
                                    name="cantidad"
@@ -39,14 +45,14 @@
                                    min="1"
                                    class="form-control mb-3">
 
-                            <button class="btn btn-warning w-100 mb-2">
+                            <button class="btn btn-link-custom w-100 mb-2">
                                 Actualizar
                             </button>
 
                         </form>
 
                         <a href="{{ url_for('eliminar_carrito', id=item._id) }}"
-                           class="btn btn-danger w-100">
+                           class="btn btn-primary-soft w-100">
 
                             Eliminar
 
@@ -62,14 +68,20 @@
 
         </div>
 
-        <div class="text-end mt-4">
-            <h3>Total: ${{ total }}</h3>
+        <div class="d-flex justify-content-between align-items-center mt-4 p-3 border rounded">
+
+            <a href="{{ url_for('adopcion') }}" class="btn btn-primary-soft">
+                ⬅️ Seguir comprando
+            </a>
+
+            <h3 class="m-0 text-secondary-custom">Total: ${{ total }}</h3>
+
         </div>
 
     {% else %}
 
-        <div class="alert alert-info text-center">
-            El carrito está vacío
+        <div class="alert text-center card-custom">
+            El carrito está vacío 🐾
         </div>
 
     {% endif %}

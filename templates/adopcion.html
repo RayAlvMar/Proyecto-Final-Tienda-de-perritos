@@ -4,19 +4,24 @@
 
 <div class="container py-4">
 
-    <h2 class="text-center mb-4">🐶 Perros en venta</h2>
+    <h2 class="text-center mb-4 text-secondary-custom">🐶 Perros en venta</h2>
 
     <div class="row">
 
         {% for perro in perros %}
         <div class="col-md-4 mb-4">
 
-            <div class="card shadow-sm h-100">
+            <div class="card card-custom shadow-sm h-100">
 
-                <img src="{{ perro.imagen_url }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+                <img src="{{ perro.imagen_url }}"
+                     class="card-img-top"
+                     style="height: 220px; object-fit: cover;">
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ perro.nombre }}</h5>
+
+                    <h5 class="card-title text-secondary-custom">
+                        {{ perro.nombre }}
+                    </h5>
 
                     <p class="card-text">
                         <strong>Raza:</strong> {{ perro.raza }} <br>
@@ -25,12 +30,19 @@
                         <strong>Precio:</strong> ${{ perro.precio }}
                     </p>
 
-                    <span class="badge bg-success">{{ perro.tipo }}</span>
+                    <span class="badge"
+                          style="background-color: var(--gold); color: var(--dark);">
+                        {{ perro.tipo }}
+                    </span>
 
-                    <form action="{{ url_for('agregar_carrito', id=perro._id) }}" method="POST" class="mt-3">
-                        <button class="btn btn-primary w-100">
+                    <form action="{{ url_for('agregar_carrito', id=perro._id) }}"
+                          method="POST"
+                          class="mt-3">
+
+                        <button class="btn btn-link-custom w-100">
                             🛒 Agregar al carrito
                         </button>
+
                     </form>
 
                 </div>
@@ -41,6 +53,11 @@
         {% endfor %}
 
     </div>
+<div class="text-center mt-5">
+    <a href="{{ url_for('ver_carrito') }}" class="btn btn-primary-soft">
+        🛒 Ir al carrito
+    </a>
+</div>
 </div>
 
 {% endblock %}

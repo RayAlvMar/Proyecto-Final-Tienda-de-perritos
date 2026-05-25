@@ -1,7 +1,8 @@
-from flask import Flask, flash, render_template, request, redirect, send_file, session
+from flask import Flask, flash, render_template, request, redirect, url_for, send_file, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 import smtplib
+import uuid
 from bson.objectid import ObjectId
 from email.mime.text import MIMEText
 from pymongo import MongoClient
@@ -50,32 +51,48 @@ Si no solicitaste esto, ignora este correo.
 
     servidor.quit()
 
+@app.before_request
+def asignar_usuario():
+    if "user_id" not in session:
+        session["user_id"] = str(uuid.uuid4())
+
 @app.route("/agregar_carrito/<id>", methods=["POST"])
 def agregar_carrito(id):
 
     perro = perros_collection.find_one({"_id": ObjectId(id)})
 
-    if perro:
+    existente = carrito_collection.find_one({
+        "usuario_id": session["user_id"],
+        "producto_id": id
+    })
 
-        producto = {
-            "perro_id": str(perro["_id"]),
+    if existente:
+        carrito_collection.update_one(
+            {"_id": existente["_id"]},
+            {"$inc": {"cantidad": 1}}
+        )
+    else:
+        carrito_collection.insert_one({
+            "usuario_id": session["user_id"],
+            "producto_id": id,
             "nombre": perro["nombre"],
             "precio": perro["precio"],
             "imagen_url": perro["imagen_url"],
             "cantidad": 1
-        }
+        })
 
-        carrito_collection.insert_one(producto)
-
-    return redirect(url_for("ver_carrito"))
+    return redirect(url_for("adopcion"))
 
 @app.route("/carrito")
 def ver_carrito():
 
-    carrito = carrito_collection.find()
+    carrito = list(
+        carrito_collection.find({
+            "usuario_id": session["user_id"]
+        })
+    )
 
     total = 0
-
     for item in carrito:
         total += item["precio"] * item["cantidad"]
 
@@ -88,19 +105,29 @@ def ver_carrito():
 @app.route("/actualizar_carrito/<id>", methods=["POST"])
 def actualizar_carrito(id):
 
-    cantidad = int(request.form["cantidad"])
+    nueva_cantidad = int(request.form["cantidad"])
 
     carrito_collection.update_one(
-        {"_id": ObjectId(id)},
-        {"$set": {"cantidad": cantidad}}
+        {
+            "_id": ObjectId(id),
+            "usuario_id": session["user_id"]
+        },
+        {
+            "$set": {"cantidad": nueva_cantidad}
+        }
     )
 
     return redirect(url_for("ver_carrito"))
 
-@app.route("/eliminar_carrito/<id>")
+@app.route("/eliminar_carrito/<id>", methods=["POST"])
 def eliminar_carrito(id):
 
-    carrito_collection.delete_one({"_id": ObjectId(id)})
+    carrito_collection.delete_one(
+        {
+            "_id": ObjectId(id),
+            "usuario_id": session["user_id"]
+        }
+    )
 
     return redirect(url_for("ver_carrito"))
 
