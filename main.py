@@ -76,7 +76,7 @@ def agregar_carrito(id):
             "usuario_id": session["user_id"],
             "producto_id": id,
             "nombre": perro["nombre"],
-            "precio": perro["precio"],
+            "precio": perro.get("precio", 0),
             "imagen_url": perro["imagen_url"],
             "cantidad": 1
         })
@@ -266,10 +266,18 @@ def articulos():
         return redirect("/login")
     return render_template("articulos.html")
 
+@app.route("/compra")
+def compra():
+    return render_template("compra.html")
+
+
+@app.route("/articulos")
+def articulos():
+    return render_template("articulos.html")
+
+
 @app.route("/perfil")
 def perfil():
-    if "usuario" not in session:
-        return redirect("/login")
     return render_template("perfil.html")
 
 if __name__ == '__main__':
