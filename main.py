@@ -15,6 +15,7 @@ db = client["Tienda_Perritos"]
 usuarios_collection = db["usuarios"]
 perros_collection = db["perros"]
 carrito_collection = db["carrito"]
+articulos_collection = db["articulos"]
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
@@ -82,6 +83,34 @@ def agregar_carrito(id):
         })
 
     return redirect(url_for("adopcion"))
+
+@app.route("/agregar_articulo", methods=["POST"])
+def agregar_articulo():
+
+    nombre = request.form.get("nombre")
+    precio = int(request.form.get("precio"))
+
+    existente = carrito_collection.find_one({
+        "usuario_id": session["user_id"],
+        "nombre": nombre
+    })
+
+    if existente:
+        carrito_collection.update_one(
+            {"_id": existente["_id"]},
+            {"$inc": {"cantidad": 1}}
+        )
+    else:
+        carrito_collection.insert_one({
+            "usuario_id": session["user_id"],
+            "nombre": nombre,
+            "precio": precio,
+            "cantidad": 1,
+            "tipo": "articulo"
+        })
+
+    flash("Producto agregado al carrito 🐶", "success")
+    return redirect(url_for("articulos"))
 
 @app.route("/carrito")
 def ver_carrito():
@@ -264,21 +293,47 @@ def adopcion():
 def articulos():
     if "usuario" not in session:
         return redirect("/login")
-    return render_template("articulos.html")
 
-@app.route("/compra")
-def compra():
-    return render_template("compra.html")
-
-
-@app.route("/articulos")
-def articulos():
-    return render_template("articulos.html")
-
+    categorias = list(articulos_collection.find())
+    return render_template("articulos.html", categorias=categorias)
 
 @app.route("/perfil")
 def perfil():
-    return render_template("perfil.html")
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    usuario = usuarios_collection.find_one({
+    "email": session["usuario"]
+})
+    
+    return render_template("perfil.html", usuario=usuario)
+
+@app.route("/actualizar_usuario", methods=["POST"])
+def actualizar_usuario():
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    nuevo_usuario = request.form.get("nuevo_usuario")
+
+    if not nuevo_usuario:
+        flash("❌ El nombre no puede estar vacío", "danger")
+        return redirect(url_for("perfil"))
+
+    existe = usuarios_collection.find_one({"nombre": nuevo_usuario})
+
+    if existe:
+        flash("⚠️ Ese nombre de usuario ya existe", "warning")
+        return redirect(url_for("perfil"))
+
+    usuarios_collection.update_one(
+        {"email": session["usuario"]},
+        {"$set": {"nombre": nuevo_usuario}}
+    )
+
+    session["nombre"] = nuevo_usuario
+
+    flash("✅ Nombre de usuario actualizado", "success")
+    return redirect(url_for("perfil"))
 
 if __name__ == '__main__':
     app.run(debug=True)

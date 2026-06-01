@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-2">Artículos disponibles 🐶</h2>
+
+    <p class="text-center mt-3 text-muted" style="font-size: 0.9rem;">
+        Encuentra lo mejor para tu mascota 🐾
+    </p>
+
+    {% for categoria in categorias %}
+        <div class="mt-5">
+
+            <h4 class="text-center mb-4 text-secondary-custom">
+                {{ categoria.nombre_categoria }}
+            </h4>
+
+            <div class="row justify-content-center">
+                {% for producto in categoria.productos %}
+                    <div class="col-md-3 mb-4">
+
+                        <div class="card card-custom shadow-sm h-100 text-center p-3"
+                             style="border-radius: 15px; transition: 0.3s;">
+
+                            <div class="card-body">
+
+                                <h6 class="fw-semibold mb-2">
+                                    {{ producto.nombre }}
+                                </h6>
+
+                                <p class="fw-bold fs-5 mb-3"
+                                   style="color: var(--dog-orange);">
+                                    ${{ producto.precio }}
+                                </p>
+
+                                <form action="{{ url_for('agregar_articulo') }}" method="POST">
+    
+    <input type="hidden" name="nombre" value="{{ producto.nombre }}">
+    <input type="hidden" name="precio" value="{{ producto.precio }}">
+
+    <button type="submit" class="btn btn-link-custom w-100">
+        Agregar al carrito
+    </button>
+
+</form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% endfor %}
+
+</div>
+
+<div class="dog-footer"></div>
+
+{% endblock %}

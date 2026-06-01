@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block contenido %}
+
+<div class="container" style="max-width: 500px;">
+
+    <h2 class="text-center mb-4 text-secondary-custom">👤 Perfil</h2>
+
+    <div class="card card-custom shadow-sm p-4">
+
+        <p class="mb-2">
+            <strong class="text-secondary-custom">Usuario actual:</strong>
+        </p>
+
+        <div class="p-2 mb-3 border rounded bg-white text-center">
+            {{ usuario.usuario }}
+        </div>
+
+        <hr>
+
+        <form action="{{ url_for('actualizar_usuario') }}" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label text-secondary-custom">
+                    Nuevo nombre de usuario
+                </label>
+
+                <div class="input-group">
+                    <span class="input-group-text">👤</span>
+                    <input type="text"
+                           name="nuevo_usuario"
+                           class="form-control"
+                           placeholder="Escribe tu nuevo usuario"
+                           required>
+                </div>
+            </div>
+
+            <button class="btn btn-link-custom w-100">
+                Actualizar nombre
+            </button>
+
+        </form>
+
+        <!-- EXTRA -->
+        <p class="text-center mt-3 text-muted" style="font-size: 0.9rem;">
+            Asegúrate de elegir un nombre único 🐶
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
