@@ -4,11 +4,11 @@
 
 <div class="container py-4">
 
-    <h2 class="text-center mb-4 text-secondary-custom">🛒 Carrito</h2>
+    <h2 class="text-center mb-4 text-secondary-custom">Carrito</h2>
 
     <div class="text-center mb-4">
         <a href="{{ url_for('adopcion') }}" class="btn btn-primary-soft">
-            ⬅️ Volver al catálogo
+        Volver al catálogo
         </a>
     </div>
 
@@ -39,11 +39,7 @@
 
                             <label class="mb-1">Cantidad:</label>
 
-                            <input type="number"
-                                   name="cantidad"
-                                   value="{{ item.cantidad }}"
-                                   min="1"
-                                   class="form-control mb-3">
+                            <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" class="form-control mb-3">
 
                             <button class="btn btn-link-custom w-100 mb-2">
                                 Actualizar
@@ -51,11 +47,8 @@
 
                         </form>
 
-                        <a href="{{ url_for('eliminar_carrito', id=item._id) }}"
-                           class="btn btn-primary-soft w-100">
-
+                        <a href="{{ url_for('eliminar_carrito', id=item._id) }}" class="btn btn-primary-soft w-100">
                             Eliminar
-
                         </a>
 
                     </div>
@@ -71,7 +64,7 @@
         <div class="d-flex justify-content-between align-items-center mt-4 p-3 border rounded">
 
             <a href="{{ url_for('adopcion') }}" class="btn btn-primary-soft">
-                ⬅️ Seguir comprando
+             Seguir comprando
             </a>
 
             <h3 class="m-0 text-secondary-custom">Total: ${{ total }}</h3>
@@ -81,7 +74,7 @@
     {% else %}
 
         <div class="alert text-center card-custom">
-            El carrito está vacío 🐾
+            El carrito está vacío 
         </div>
 
     {% endif %}

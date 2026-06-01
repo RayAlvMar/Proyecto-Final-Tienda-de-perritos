@@ -1,112 +1,101 @@
 {% extends "base.html" %}
 
 {% block rayito %}
-<div class="container mt-4">
-    <div class="text-center">
-        <h2 class="fw-bold text-uppercase text-secondary-custom" style="letter-spacing: 5px; font-size: 1.5rem;">
-            REGISTRARSE
-        </h2>
-
-        <p class="text-muted">
-            Forma parte de DoggyWorld
-        </p>
-    </div>
+<div class="container mt-4 text-center">
+    <h2 class="fw-bold text-uppercase text-secondary-custom" style="letter-spacing: 6px;">
+        REGISTRO
+    </h2>
+    <p class="text-muted">
+        Únete a DoggyWorld
+    </p>
 </div>
 {% endblock %}
 
 {% block contenido %}
 
-<div class="container mt-4">
-<div class="row justify-content-center">
-<div class="col-md-6 col-lg-5">
-<div class="card-custom p-5 rounded-5 shadow-sm">
+<div class="container py-5">
 
-<div class="text-center mb-4">
-    <div class="mb-3">
-        <i class="bi bi-heart-fill text-link-custom" style="font-size: 3rem;"></i>
+    <div class="row justify-content-center align-items-center g-4">
+
+        <div class="col-lg-4">
+            <div class="card-custom p-4 rounded-5 h-100 d-flex flex-column justify-content-center text-center">
+                <i class="bi bi-person-hearts mb-3 text-link-custom" style="font-size: 4rem;"></i>
+
+                <h4 class="fw-bold text-secondary-custom">
+                    Crea tu perfil
+                </h4>
+
+                <p class="text-muted small">
+                    Accede a adopciones, compras y más
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card-custom p-5 rounded-5 shadow-sm">
+
+                <form method="POST" action="/registrar">
+
+                    <div class="row g-3">
+
+                        <div class="col-12">
+                            <div class="d-flex align-items-center bg-white rounded-4 px-3 py-2">
+                                <i class="bi bi-person-fill text-muted me-2"></i>
+                                <input type="text" name="nombre" class="form-control border-0 shadow-none"
+                                       placeholder="Usuario" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-flex align-items-center bg-white rounded-4 px-3 py-2">
+                                <i class="bi bi-envelope-fill text-muted me-2"></i>
+                                <input type="email" name="email" class="form-control border-0 shadow-none"
+                                       placeholder="Correo electrónico" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-flex align-items-center bg-white rounded-4 px-3 py-2">
+                                <i class="bi bi-lock-fill text-muted me-2"></i>
+                                <input type="password" name="password" class="form-control border-0 shadow-none"
+                                       placeholder="Contraseña" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="d-flex align-items-center bg-white rounded-4 px-3 py-2">
+                                <i class="bi bi-balloon-heart text-muted me-2"></i>
+                                <input type="number" name="edad" class="form-control border-0 shadow-none"
+                                       placeholder="Edad" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="d-flex align-items-center bg-white rounded-4 px-3 py-2">
+                                <i class="bi bi-gender-ambiguous text-muted me-2"></i>
+                                <input type="text" name="genero" class="form-control border-0 shadow-none"
+                                       placeholder="Género" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <button type="submit"
+                                    class="btn btn-primary-soft w-100 py-3 rounded-4 fw-bold">
+                                Crear cuenta
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
     </div>
-    <h2 class="fw-bold text-secondary-custom">
-        Crear cuenta
-    </h2>
-    <p class="text-muted">
-        Regístrate en menos de 3 minutos
-    </p>
-</div>
-<form method="POST" action="/registrar">
-
-<div class="mb-3">
-    <label class="form-label fw-semibold text-secondary-custom">
-        Usuario
-    </label>
-    <div class="input-group border rounded-4 overflow-hidden">
-
-        <span class="input-group-text bg-transparent border-0">
-            <i class="bi bi-person-fill"></i>
-        </span>
-        <input type="text" name="nombre" class="form-control border-0 py-3" placeholder="Ingresa tu usuario" required>
-    </div>
-</div>
-
-<div class="mb-3">
-    <label class="form-label fw-semibold text-secondary-custom">
-        Correo electrónico
-    </label>
-    <div class="input-group border rounded-4 overflow-hidden">
-        <span class="input-group-text bg-transparent border-0">
-            <i class="bi bi-envelope-fill"></i>
-        </span>
-        <input type="email" name="email" class="form-control border-0 py-3" placeholder="Ingresa tu correo" required>
-    </div>
-</div>
-
-<div class="mb-3">
-
-    <label class="form-label fw-semibold text-secondary-custom">
-        Contraseña
-    </label>
-
-    <div class="input-group border rounded-4 overflow-hidden">
-
-        <span class="input-group-text bg-transparent border-0">
-            <i class="bi bi-lock-fill"></i>
-        </span>
-
-        <input type="password" name="password" class="form-control border-0 py-3" placeholder="Ingresa tu contraseña" required>
-    </div>
-</div>
-<div class="row">
-
-<div class="col-md-6 mb-3">
-    <label class="form-label fw-semibold text-secondary-custom">
-        Edad
-    </label>
-    <div class="input-group border rounded-4 overflow-hidden">
-        <span class="input-group-text bg-transparent border-0">
-            <i class="bi bi-balloon-heart"></i>
-        </span>
-        <input type="number" name="edad" class="form-control border-0 py-3" placeholder="Edad" required>
-    </div>
-</div>
-
-<div class="col-md-6 mb-4">
-    <label class="form-label fw-semibold text-secondary-custom">
-        Género
-    </label>
-    <div class="input-group border rounded-4 overflow-hidden">
-        <span class="input-group-text bg-transparent border-0">
-            <i class="bi bi-gender-ambiguous"></i>
-        </span>
-        <input type="text" name="genero" class="form-control border-0 py-3" placeholder="Género" required>
-    </div>
-</div>
-</div>
-
-<button type="submit" class="btn btn-primary-soft w-100 rounded-4 py-3 fw-semibold">
-    Crear cuenta 🦴
-</button>
 
 </div>
-</div>
-</div>
-</div>
+
 {% endblock %}

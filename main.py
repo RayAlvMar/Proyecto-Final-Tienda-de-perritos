@@ -294,8 +294,23 @@ def articulos():
     if "usuario" not in session:
         return redirect("/login")
 
+    cat = request.args.get("cat")
+
     categorias = list(articulos_collection.find())
-    return render_template("articulos.html", categorias=categorias)
+
+    categoria = None
+
+    if cat:
+        categoria = next(
+            (c for c in categorias if c["nombre_categoria"] == cat),
+            None
+        )
+
+    return render_template(
+        "articulos.html",
+        categorias=categorias,
+        categoria=categoria
+    )
 
 @app.route("/perfil")
 def perfil():
@@ -316,13 +331,13 @@ def actualizar_usuario():
     nuevo_usuario = request.form.get("nuevo_usuario")
 
     if not nuevo_usuario:
-        flash("❌ El nombre no puede estar vacío", "danger")
+        flash("El nombre no puede estar vacío", "danger")
         return redirect(url_for("perfil"))
 
     existe = usuarios_collection.find_one({"nombre": nuevo_usuario})
 
     if existe:
-        flash("⚠️ Ese nombre de usuario ya existe", "warning")
+        flash("Ese nombre de usuario ya existe", "warning")
         return redirect(url_for("perfil"))
 
     usuarios_collection.update_one(
@@ -332,7 +347,7 @@ def actualizar_usuario():
 
     session["nombre"] = nuevo_usuario
 
-    flash("✅ Nombre de usuario actualizado", "success")
+    flash("Nombre de usuario actualizado", "success")
     return redirect(url_for("perfil"))
 
 if __name__ == '__main__':

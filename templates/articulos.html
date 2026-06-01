@@ -2,27 +2,59 @@
 
 {% block contenido %}
 
-<div class="container mt-5">
+<div class="container mt-5 position-relative">
 
-    <h2 class="text-center mb-2">Artículos disponibles 🐶</h2>
+    <img src="{{ url_for('static', filename='img/5.jpg') }}"
+         style="position:absolute; left:-90px; top:120px; width:140px; opacity:0.6; transform:rotate(-12deg); pointer-events:none; z-index:0;">
 
-    <p class="text-center mt-3 text-muted" style="font-size: 0.9rem;">
-        Encuentra lo mejor para tu mascota 🐾
-    </p>
+    <img src="{{ url_for('static', filename='img/6.jpg') }}"
+         style="position:absolute; right:-90px; top:180px; width:140px; opacity:0.6; transform:rotate(12deg); pointer-events:none; z-index:0;">
 
-    {% for categoria in categorias %}
-        <div class="mt-5">
+    <img src="{{ url_for('static', filename='img/7.webp') }}"
+         style="position:absolute; left:50%; bottom:-80px; transform:translateX(-50%) rotate(-5deg); width:160px; opacity:0.5; pointer-events:none; z-index:0;">
+
+    <div style="position:relative; z-index:1;">
+
+        <h2 class="text-center mb-2">Artículos disponibles</h2>
+
+        <p class="text-center mt-3 text-muted" style="font-size: 0.9rem;">
+            Encuentra lo mejor para tu mascota
+        </p>
+
+        <div class="text-center mb-4">
+
+            {% for c in categorias %}
+                <a href="/articulos?cat={{ c.nombre_categoria }}"
+                   class="btn btn-sm btn-link-custom m-1">
+                    {{ c.nombre_categoria }}
+                </a>
+            {% endfor %}
+
+        </div>
+
+        {% if categoria %}
 
             <h4 class="text-center mb-4 text-secondary-custom">
                 {{ categoria.nombre_categoria }}
             </h4>
 
             <div class="row justify-content-center">
+
                 {% for producto in categoria.productos %}
+
                     <div class="col-md-3 mb-4">
 
-                        <div class="card card-custom shadow-sm h-100 text-center p-3"
-                             style="border-radius: 15px; transition: 0.3s;">
+                        <div class="card card-custom shadow-sm h-100 text-center p-3">
+
+                            {% if producto.imagen_url %}
+                                <img src="{{ producto.imagen_url }}"
+                                     class="img-fluid rounded mb-3"
+                                     style="height:160px; object-fit:cover;">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='img/default.jpg') }}"
+                                     class="img-fluid rounded mb-3"
+                                     style="height:160px; object-fit:cover;">
+                            {% endif %}
 
                             <div class="card-body">
 
@@ -36,26 +68,35 @@
                                 </p>
 
                                 <form action="{{ url_for('agregar_articulo') }}" method="POST">
-    
-    <input type="hidden" name="nombre" value="{{ producto.nombre }}">
-    <input type="hidden" name="precio" value="{{ producto.precio }}">
 
-    <button type="submit" class="btn btn-link-custom w-100">
-        Agregar al carrito
-    </button>
+                                    <input type="hidden" name="nombre" value="{{ producto.nombre }}">
+                                    <input type="hidden" name="precio" value="{{ producto.precio }}">
 
-</form>
+                                    <button type="submit" class="btn btn-link-custom w-100">
+                                        Agregar al carrito
+                                    </button>
+
+                                </form>
+
                             </div>
 
                         </div>
 
                     </div>
+
                 {% endfor %}
+
             </div>
 
-        </div>
-    {% endfor %}
+        {% else %}
 
+            <p class="text-center text-muted mt-5">
+                Selecciona una categoría para ver productos
+            </p>
+
+        {% endif %}
+
+    </div>
 </div>
 
 <div class="dog-footer"></div>

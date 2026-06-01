@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Doggy App{% endblock %}</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block head %}{% endblock %}
 </head>
 
@@ -15,7 +18,7 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="#">DoggyWorld</a>
+        <a class="navbar-brand" href="/base">DoggyWorld</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +27,7 @@
         <div class="collapse navbar-collapse" id="menu">
             {% if session.get('usuario') and request.endpoint not in ['login', 'registro', 'recuperar', 'reset'] %}
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/compra">Compra</a></li>
+                <li class="nav-item"><a class="nav-link" href="/carrito">Compra</a></li>
                 <li class="nav-item"><a class="nav-link" href="/adopcion">Adopción</a></li>
                 <li class="nav-item"><a class="nav-link" href="/articulos">Artículos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/perfil">Perfil</a></li>
@@ -35,73 +38,136 @@
 </nav>
 {% endblock %}
 
-<main class="container py-4">
+<main class="py-4">
 
 {% block contenido %}
 
 <div class="container py-5">
 
-    <div class="text-center mb-5">
-        <h1 class="fw-bold">DoggyWorld</h1>
-        <p class="text-muted fs-5">
-            Sistema web para gestión de perros en adopción, compra y cuidado responsable.
-        </p>
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+
+            <h1 class="fw-bold mb-3">
+                Encuentra a tu próximo mejor amigo ૮˶• ﻌ •˶ა
+            </h1>
+
+            <p class="fs-5 text-secondary-custom">
+                ¿Eres alguien responsable?
+                Nuestros perritos necesitan un lugar que los acoja, un hogar con mucho amor que darles. En nuestro apartado de adopcion habrán opciones para adpotar, estas cuentan historias diferentes cada una, con información detallada sobre el perrito al cual se desee adoptar. Ayudanos a ayudar a los perritos. 𐂯
+            </p>
+
+            <a href="#" class="btn btn-link-custom me-2">
+                Explorar perros
+            </a>
+
+        </div>
+
+        <div class="col-lg-6 mt-4 mt-lg-0">
+            <img src="{{ url_for('static', filename='img/4.avif') }}"
+                 class="img-fluid rounded shadow"
+                 alt="Perro en adopción">
+        </div>
     </div>
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Propósito del proyecto</h3>
-        <p>
-            DoggyWorld centraliza información de perros disponibles para adopción o compra,
-            ayudando a tomar decisiones responsables.
-        </p>
+    <div class="row text-center mb-5">
+
+        <div class="col-md-4 mb-3">
+            <div class="card card-custom h-100 p-4">
+                <h2 class="fw-bold">+300</h2>
+                <p class="mb-0">
+                Nuestra app ha logrado encontrar una casa para mas de 300 perritos. ¿No dan ganas de llorar?૮(˶ㅠ︿ㅠ)ა
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card card-custom h-100 p-4">
+                <h2 class="fw-bold">+80</h2>
+                <p class="mb-0">
+                En busca de un hogar que los reciba, un hogar que les de lo que ellos tanto anhelan... amor, cariño, cuidados y un lugar donde ser felices. ദ്ദി(｡•̀ ,<)~✩‧₊
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card card-custom h-100 p-4">
+                <h2 class="fw-bold">+30 perros</h2>
+                <p class="mb-0">
+                ¿Quieres algún otro perrito? Tenemos mas de 30 perros en venta, ¿No es esto grandioso? ૮(˶• ﻌ •˶ა)۶
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Funcionalidad</h3>
-        <p>
-            Registro de usuarios, login y catálogo de perros almacenados en MongoDB.
-        </p>
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100">
+                <img src="{{ url_for('static', filename='img/2.webp') }}"
+                     class="perro-img card-img-top"
+                     alt="Adopción responsable">
+
+                <div class="card-body">
+                    <h4>Adopción responsable</h4>
+                    <p>
+                    Porfavor, antes de adoptar, asegúrate de estar listo para brindar un hogar amoroso y responsable a tu nuevo amigo peludo. La adopción es un compromiso a largo plazo que requiere tiempo, dedicación y recursos para garantizar el bienestar del perro. Gracias por tener un adopción responsable. ( ⸝⸝´ ᵕ `⸝⸝)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100">
+                <img src="{{ url_for('static', filename='img/3.webp') }}"
+                     class="perro-img card-img-top"
+                     alt="Perfiles verificados">
+
+                <div class="card-body">
+                    <h4>Artículos</h4>
+                    <p>
+                    En nuestra sección de articulos encontrarás muchos articulos para tu nuevo amigo juguetón, o para tu perrito en casa. Paseate por ahí! •ᴗ•
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100">
+                <img src="{{ url_for('static', filename='img/1.webp') }}"
+                     class="perro-img card-img-top"
+                     alt="Comunidad">
+
+                <div class="card-body">
+                    <h4>Compra responsable</h4>
+                    <p>
+                    Cada perrito es una vida nueva, cada perrito es un nuevo comienzo para ti, para ellos y para todo. Ya sea un peludito adoptado o uno comprado, cuidalos porfavor, y ellos te llenarám de amor. ‹𝟹                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Base de datos</h3>
-        <p>
-            MongoDB con colecciones de usuarios y perros para gestión dinámica.
-        </p>
-    </div>
+    <div class="card card-custom p-5 text-center">
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Tecnologías</h3>
-        <ul>
-            <li>Flask</li>
-            <li>MongoDB</li>
-            <li>HTML / CSS / Bootstrap</li>
-            <li>Jinja2</li>
-        </ul>
-    </div>
+        <h2 class="mb-3">
+            Cada perro merece una segunda oportunidad
+        </h2>
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Seguridad</h3>
-        <p>
-            Sesiones y contraseñas encriptadas para proteger usuarios.
+        <p class="mb-4">
+            "Un perro es la única cosa en la tierra que te ama más a ti de lo que se ama a sí mismo". — Josh Billings
         </p>
-    </div>
 
-    <div class="card shadow-sm p-4 mb-4">
-        <h3>Enfoque</h3>
-        <p>
-            Promover adopción responsable y bienestar animal usando tecnología.
-        </p>
-    </div>
+        <div>
+            <a href="#" class="btn btn-link-custom">
+                Comenzar búsqueda
+            </a>
+        </div>
 
-    <div class="card shadow-sm p-4">
-        <h3>Perros disponibles</h3>
-        <p>
-            Aquí puedes ver los perros registrados en el sistema.
-        </p>
     </div>
 
 </div>
+
 
 {% endblock %}
 

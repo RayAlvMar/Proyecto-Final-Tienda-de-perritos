@@ -4,8 +4,7 @@
     --cream: #FFF7ED;            
     --beige: #E7D3C1;            
     --brown: #5A3E2B;            
-    --dark: #2E1F16;              
-    --orange: #D08C60;           
+    --dark: #2E1F16;                        
     --gold: #E6B98A;            
     --white: #FFFFFF;
     --gray: #8A7F78;             
@@ -94,15 +93,21 @@ body {
     border-color: var(--beige) !important;
 }
 
+.perro-img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.badge-custom {
+    background-color: var(--gold);
+    color: var(--dark);
+}
+
 .dog-footer {
     height: 120px;
-    background-image: url("http://127.0.0.1:5000/static/img/perritos.png");
+    background-image: url("/static/img/perritos.png");
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: auto 100%;
     margin-top: 5rem;
-}
-.card-custom:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
