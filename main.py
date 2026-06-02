@@ -82,7 +82,7 @@ def agregar_carrito(id):
             "cantidad": 1
         })
 
-    return redirect(url_for("adopcion"))
+    return redirect(url_for("compra"))
 
 @app.route("/agregar_articulo", methods=["POST"])
 def agregar_articulo():
@@ -270,14 +270,41 @@ def base():
     
     return render_template("base.html")
 
-@app.route("/compra")
-def compra():
-    if "usuario" not in session:
-        return redirect("/login")
-    return render_template("compra.html")
-
 @app.route("/adopcion")
 def adopcion():
+    if "usuario" not in session:
+        return redirect("/login")
+
+    perros = list(perros_collection.find({
+    "tipo": "Adopcion"
+}))
+
+    return render_template("adopcion.html", perros=perros)
+
+@app.route("/solicitar_adopcion/<id>", methods=["POST"])
+def solicitar_adopcion(id):
+
+    nombre = request.form.get("nombre")
+    email = request.form.get("email")
+    telefono = request.form.get("telefono")
+    mensaje = request.form.get("mensaje")
+
+    perro = perros_collection.find_one({"_id": ObjectId(id)})
+
+    db["solicitudes"].insert_one({
+        "perro_id": id,
+        "perro_nombre": perro["nombre"],
+        "nombre": nombre,
+        "email": email,
+        "telefono": telefono,
+        "mensaje": mensaje
+    })
+
+    flash("Solicitud enviada 🐶💚", "success")
+    return redirect(url_for("adopcion"))
+
+@app.route("/compra")
+def compra():
     if "usuario" not in session:
         flash("Debes iniciar sesión para acceder a esta página", "warning")
         return redirect("/login")
@@ -285,9 +312,11 @@ def adopcion():
     print("a")
     print(dict(session))  
 
-    perros = list(perros_collection.find())
+    perros = list(perros_collection.find({
+        "precio": {"$gt": 0}
+    }))
 
-    return render_template("adopcion.html", perros=perros)
+    return render_template("compra.html", perros=perros)
 
 @app.route("/articulos")
 def articulos():
@@ -341,7 +370,7 @@ def actualizar_usuario():
         return redirect(url_for("perfil"))
 
     usuarios_collection.update_one(
-        {"email": session["usuario"]},
+        {"email": session["nombre"]},
         {"$set": {"nombre": nuevo_usuario}}
     )
 

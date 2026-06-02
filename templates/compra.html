@@ -1,7 +1,75 @@
 {% extends "base.html" %}
 
-{% block title %}Compra{% endblock %}
-
 {% block contenido %}
-<h2 class="text-center">Sección de compra</h2>
+
+<div class="container py-4">
+
+    <h2 class="text-center mb-4 text-secondary-custom">Perros en venta</h2>
+
+    <div class="row">
+
+        {% for perro in perros %}
+        <div class="col-md-4 mb-4">
+            <div class="card card-custom shadow-sm h-100">
+
+                <div class="img-container">
+                    <img src="{{ perro.imagen_url }}" class="perro-img">
+                </div>
+
+                <div class="card-body">
+
+                    <h5 class="card-title text-secondary-custom">
+                        {{ perro.nombre }}
+                    </h5>
+
+                    <p class="card-text">
+                        <strong>Raza:</strong> {{ perro.raza }} <br>
+                        <strong>Edad:</strong> {{ perro.edad }} <br>
+                        <strong>Sexo:</strong> {{ perro.sexo }} <br>
+                        <strong>Peso actual:</strong> {{ perro.peso_actual }} <br>
+                        <strong>Tamaño:</strong> {{ perro.tamano }} <br>
+                        <strong>Temperamento:</strong> {{ perro.temperamento }} <br>
+                        <strong>Nivel de energía:</strong> {{ perro.nivel_energia }} <br>
+                        <strong>Sociabilidad:</strong> {{ perro.sociabilidad }} <br>
+                        <strong>Obediencia:</strong> {{ perro.obediencia }} <br>
+                        <strong>Conducta:</strong> {{ perro.conducta }} <br>
+                        <strong>Historial medico:</strong> {{ perro.salud.historial_medico }} <br>
+                        <strong>Vacunas:</strong> {{ perro.salud.vacunas }} <br>
+                        <strong>Desparacitación:</strong> {{ perro.salud.desparasitacion }} <br>
+                        <strong>Esterilizado:</strong> {{ perro.salud.esterilizado }} <br>
+                        <strong>Certificado de salud:</strong> {{ perro.salud.certificado_salud }} <br>
+                    </p>
+
+                    <span class="badge badge-custom">
+                        {{ perro.tipo }}
+                    </span>
+
+                    <form action="{{ url_for('agregar_carrito', id=perro._id) }}" method="POST" class="mt-3">
+                        <button class="btn btn-link-custom w-100">
+                            Agregar al carrito
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{{ url_for('ver_carrito') }}" class="btn btn-primary-soft">
+            Ir al carrito
+        </a>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="{{ url_for('adopcion') }}" class="btn btn-success">
+        ¡Dale una oportunidad a nuestros pequeños en venta!
+        </a>
+    </div>
+
+</div>
+
 {% endblock %}
