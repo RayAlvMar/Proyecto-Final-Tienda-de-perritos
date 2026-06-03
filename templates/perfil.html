@@ -10,6 +10,24 @@
 
     <div class="card card-custom shadow-sm p-4">
 
+        <form action="{{ url_for('subir_foto') }}"
+      method="POST"
+      enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label class="form-label">Foto de perfil</label>
+
+        <input type="file"
+               name="foto"
+               accept="image/*"
+               class="form-control">
+    </div>
+
+    <button class="btn btn-link-custom w-100">
+        Subir foto
+    </button>
+</form>
+
         <p class="mb-2">
             <strong class="text-secondary-custom">Usuario actual:</strong>
         </p>

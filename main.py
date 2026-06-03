@@ -6,6 +6,8 @@ import uuid
 from bson.objectid import ObjectId
 from email.mime.text import MIMEText
 from pymongo import MongoClient
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "123456789"
@@ -22,6 +24,15 @@ SMTP_PORT = 587
 EMAIL_SENDER = "perritostienda61@gmail.com"
 EMAIL_PASSWORD = "njzd jlaa gwlr mqvs"
 
+UPLOAD_FOLDER = "static/uploads"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+@app.context_processor
+def inject_user():
+    if "usuario" in session:
+        usuario = usuarios_collection.find_one({"email": session["usuario"]})
+        return {"usuario_actual": usuario}
+    return {"usuario_actual": None}
 
 def enviar_correo(destinatario, token):
     link = f"http://127.0.0.1:5000/reset/{token}"
@@ -363,20 +374,46 @@ def actualizar_usuario():
         flash("El nombre no puede estar vacío", "danger")
         return redirect(url_for("perfil"))
 
-    existe = usuarios_collection.find_one({"nombre": nuevo_usuario})
+    existe = usuarios_collection.find_one({
+        "nombre": nuevo_usuario
+    })
 
     if existe:
         flash("Ese nombre de usuario ya existe", "warning")
         return redirect(url_for("perfil"))
 
     usuarios_collection.update_one(
-        {"email": session["nombre"]},
+        {"email": session["usuario"]},
         {"$set": {"nombre": nuevo_usuario}}
     )
 
     session["nombre"] = nuevo_usuario
 
     flash("Nombre de usuario actualizado", "success")
+    return redirect(url_for("perfil"))
+
+@app.route("/subir_foto", methods=["POST"])
+def subir_foto():
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    archivo = request.files.get("foto")
+
+    if not archivo or archivo.filename == "":
+        flash("No seleccionaste ninguna imagen", "danger")
+        return redirect(url_for("perfil"))
+
+    nombre_seguro = secure_filename(archivo.filename)
+
+    ruta = os.path.join(app.config["UPLOAD_FOLDER"], nombre_seguro)
+    archivo.save(ruta)
+
+    usuarios_collection.update_one(
+        {"email": session["usuario"]},
+        {"$set": {"foto_perfil": nombre_seguro}}
+    )
+
+    flash("Foto actualizada correctamente", "success")
     return redirect(url_for("perfil"))
 
 if __name__ == '__main__':

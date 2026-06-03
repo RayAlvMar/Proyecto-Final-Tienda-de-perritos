@@ -21,10 +21,6 @@
 
         <a class="navbar-brand" href="/base">DoggyWorld</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         {% if session.get('usuario') and request.endpoint not in ['login', 'registrar', 'recuperar', 'reset'] %}
 
         <div class="collapse navbar-collapse" id="menu">
@@ -58,8 +54,14 @@
             </ul>
 
             {% if request.endpoint != 'perfil' %}
-            <a href="/perfil" class="ms-3 profile-icon text-decoration-none">
-                <i class="bi bi-person-circle"></i>
+            <a href="/perfil" class="ms-3 profile-icon text-decoration-none d-flex align-items-center">
+                {% if usuario_actual and usuario_actual.foto_perfil %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ usuario_actual.foto_perfil) }}"
+                         class="profile-pic"
+                         alt="Perfil"/>
+                {% else %}
+                    <i class="bi bi-person-circle fs-3 text-secondary"></i>
+                {% endif %}
             </a>
             {% endif %}
 
