@@ -18,22 +18,55 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-lg">
     <div class="container">
+
         <a class="navbar-brand" href="/base">DoggyWorld</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        {% if session.get('usuario') and request.endpoint not in ['login', 'registrar', 'recuperar', 'reset'] %}
+
         <div class="collapse navbar-collapse" id="menu">
-            {% if session.get('usuario') and request.endpoint not in ['login', 'registro', 'recuperar', 'reset'] %}
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/compra">Compra</a></li>
-                <li class="nav-item"><a class="nav-link" href="/adopcion">Adopción</a></li>
-                <li class="nav-item"><a class="nav-link" href="/articulos">Artículos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/perfil">Perfil</a></li>
+
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'base' %}active-nav{% endif %}" href="/base">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'compra' %}active-nav{% endif %}" href="/compra">
+                        Compra
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'adopcion' %}active-nav{% endif %}" href="/adopcion">
+                        Adopción
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'articulos' %}active-nav{% endif %}" href="/articulos">
+                        Artículos
+                    </a>
+                </li>
+
             </ul>
+
+            {% if request.endpoint != 'perfil' %}
+            <a href="/perfil" class="ms-3 profile-icon text-decoration-none">
+                <i class="bi bi-person-circle"></i>
+            </a>
             {% endif %}
+
         </div>
+
+        {% endif %}
+
     </div>
 </nav>
 {% endblock %}
@@ -141,7 +174,8 @@
                 <div class="card-body">
                     <h4>Compra responsable</h4>
                     <p>
-                    Cada perrito es una vida nueva, cada perrito es un nuevo comienzo para ti, para ellos y para todo. Ya sea un peludito adoptado o uno comprado, cuidalos porfavor, y ellos te llenarám de amor. ‹𝟹                    </p>
+                    Cada perrito es una vida nueva, cada perrito es un nuevo comienzo para ti, para ellos y para todo. Ya sea un peludito adoptado o uno comprado, cuidalos porfavor, y ellos te llenarám de amor. ‹𝟹
+                    </p>
                 </div>
             </div>
         </div>
@@ -167,7 +201,6 @@
     </div>
 
 </div>
-
 
 {% endblock %}
 

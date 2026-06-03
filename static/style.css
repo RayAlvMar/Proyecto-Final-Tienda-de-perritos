@@ -47,6 +47,41 @@ body {
     background-color: var(--peach) !important;
 }
 
+.active-nav {
+    color: var(--dog-orange) !important;
+    font-weight: 700;
+    position: relative;
+}
+
+.active-nav::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    background-color: var(--dog-orange);
+    border-radius: 10px;
+}
+
+.profile-icon{
+    font-size: 2rem;
+    color: var(--dog-orange);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon:hover{
+    color: #ff914d;
+    transform: scale(1.1);
+}
+
+.active-nav{
+    color: var(--dog-orange) !important;
+    font-weight: 700;
+}
+
 .form-control {
     color: var(--dark);
     background-color: var(--white);
